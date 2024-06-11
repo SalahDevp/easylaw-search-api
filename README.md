@@ -19,7 +19,7 @@ docker pull ghcr.io/salahdevp/easylaw-search-api:latest
 3. Run the container
 
 ```bash
-docker run -e ELASTIC_PASSWORD=<elastic password> -p 5000:5000 ghcr.io/salahdevp/easylaw-search-api:latest
+docker run -e ELASTIC_PASSWORD=<elastic password> -p 8000:5000 ghcr.io/salahdevp/easylaw-search-api:latest
 ```
 
 Replace < elastic password > with your elastic search password.
