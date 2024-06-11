@@ -21,6 +21,7 @@ def search_supreme_court():
     search_field = request.args.get("search_field")
     subject = request.args.get("subject")
     number = request.args.get("number", type=int)
+    sort_by = request.args.get("sort_by", "relevance")
 
     results = search_service.supreme_court_decisions(
         search_query,
@@ -31,6 +32,7 @@ def search_supreme_court():
         search_field,
         subject,
         number,
+        sort_by,
     )
     return jsonify(results)
 
@@ -48,6 +50,7 @@ def search_laws():
     text_number = request.args.get("text_number")
     ministry = request.args.get("ministry")
     field = request.args.get("field")
+    sort_by = request.args.get("sort_by", "relevance")
 
     results = search_service.laws(
         search_query,
@@ -61,6 +64,7 @@ def search_laws():
         text_number,
         ministry,
         field,
+        sort_by,
     )
     return jsonify(results)
 
@@ -100,6 +104,7 @@ def search_conseil():
     procedure = request.args.get("procedure")
     start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
+    sort_by = request.args.get("sort_by", "relevance")
 
     results = search_service.conseil(
         search_query,
@@ -111,6 +116,7 @@ def search_conseil():
         procedure,
         start_date,
         end_date,
+        sort_by,
     )
     return jsonify(results)
 

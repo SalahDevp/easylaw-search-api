@@ -34,6 +34,7 @@ class SearchService:
         search_field: str | None,
         subject: str | None,
         number: int | None,
+        sort_by: str = "relevance",
     ):
         filters: List[dict[str, Any]] = []
         if start_date:
@@ -80,6 +81,9 @@ class SearchService:
             "from": (page - 1) * per_page,
             "size": per_page,
         }
+        if sort_by == "date":
+            es_query["sort"] = [{"date": {"order": "desc"}}]
+
         search_res = self.es.search(index="supreme-court", body=es_query)
 
         return self._format_search_res(search_res.body, page, per_page)
@@ -97,6 +101,7 @@ class SearchService:
         text_number: str | None,
         ministry: str | None,
         field: str | None,
+        sort_by: str = "relevance",
     ):
 
         filters: List[dict[str, Any]] = []
@@ -139,6 +144,10 @@ class SearchService:
             "from": (page - 1) * per_page,
             "size": per_page,
         }
+        if sort_by == "signature_date":
+            es_query["sort"] = [{"signature_date": {"order": "desc"}}]
+        elif sort_by == "journal_date":
+            es_query["sort"] = [{"journal_date": {"order": "desc"}}]
 
         search_res = self.es.search(index="laws", body=es_query)
 
@@ -202,6 +211,7 @@ class SearchService:
         procedure: str | None,
         start_date: str | None,
         end_date: str | None,
+        sort_by: str = "relevance",
     ):
         filters: List[dict[str, Any]] = []
         if number:
@@ -237,6 +247,9 @@ class SearchService:
             "from": (page - 1) * per_page,
             "size": per_page,
         }
+        if sort_by == "date":
+            es_query["sort"] = [{"date": {"order": "desc"}}]
+
         search_res = self.es.search(index="conseil", body=es_query)
 
         return self._format_search_res(search_res.body, page, per_page)
